@@ -66,28 +66,25 @@ function buildCharts(sample) {
     var resultSample = samples.filter(sampleObj => sampleObj.id == sample);
     //  5. Create a variable that holds the first sample in the array.
     var result1 = resultSample[0];
-    console.log(result1)
+ 
 
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
    
     var resultOtu_ids = result1.otu_ids;
-    var resultOtu_ids = resultOtu_ids.toString()
-    //console.log(resultOtu_ids);
     var resultOtu_labels = result1.otu_labels;
-    //console.log(resultOtu_labels);
     var resultSample_values = result1.sample_values;
-    //console.log(resultSample_values);
+
 
     // 7. Create the yticks for the bar chart.
-    var yticks = resultSample_values.sort((a,b) => b - a);
-    var yticks1 = yticks.slice(0,10);
-    var sampleValues = yticks1.reverse()
-    //console.log(sampleValues);
+    var yticks = resultOtu_ids.slice(0,10).map(Otu_id => `OTU ${Otu_id}`).reverse();
+    
+    var sampleValues = resultSample_values.slice(0,10).reverse();
 
     //8. Create the trace for the bar chart.  
      var barData = [{
-      y: resultOtu_ids,
+      y: yticks,
       x: sampleValues,
+      text: resultOtu_labels,
       type: "bar",
       orientation: 'h'
     }];
